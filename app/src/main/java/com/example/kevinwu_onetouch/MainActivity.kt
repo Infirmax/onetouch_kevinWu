@@ -20,6 +20,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -36,7 +37,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val context = LocalContext.current
-            val (imageIndex, setImageIndex) = remember { mutableStateOf(0) }
+            val (imageIndex, setImageIndex) = remember { mutableIntStateOf(0) }
             val (imageText, setImageText) = remember { mutableStateOf("") }
 
             val sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
@@ -77,11 +78,10 @@ fun ImageWithButton(
     )
 
     Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
     ) {
-
         TextField(
             value = imageText.value,
             onValueChange = { newImageText ->
@@ -107,7 +107,6 @@ fun ImageWithButton(
             Text("Change Image")
         }
         Spacer(modifier = Modifier.height(16.dp))
-
 
     }
 }
